@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import "./NavbarStyle.css";
+import "./NavigationStyle.css";
 
 const Navigation = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);

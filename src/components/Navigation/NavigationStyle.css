@@ -1,0 +1,7 @@
+.navbar-brand, .nav-link {
+    margin-left: 12px !important;
+}
+
+.navbar-toggler {
+    margin-right: 12px;
+}

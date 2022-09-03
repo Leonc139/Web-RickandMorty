@@ -7,11 +7,10 @@ import Page from "../../components/Page/Page";
 const Characters = () => {
   const [characters, setCharacters] = useState([]);
   const [page, setPage] = useState({});
-  const url = CHARACTERS_API;
 
   useEffect(() => {
-    fetchData(url);
-  }, [url]);
+    fetchData(CHARACTERS_API);
+  }, []);
 
   const fetchData = (url) => {
     try {
@@ -29,7 +28,6 @@ const Characters = () => {
       console.log(e);
     }
   };
-  console.log(url);
 
   const handleNextPage = () => {
     fetchData(page.next);

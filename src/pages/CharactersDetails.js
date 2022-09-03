@@ -42,7 +42,7 @@ const CharacterDetails = () => {
             <div className="text-center">
               <img src={image} className="rounded" alt={name} />
             </div>
-            <ul className="list-group">
+            <ul className="list-group mb-3 mt-3">
               <li className="list-group-item">
                 <strong>Origin:</strong> {origin.name}
               </li>
