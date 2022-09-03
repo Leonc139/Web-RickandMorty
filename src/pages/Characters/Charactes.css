@@ -1,0 +1,10 @@
+.characters__container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2rem;
+}
+
+.character{
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
