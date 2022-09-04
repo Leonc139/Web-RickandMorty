@@ -16,9 +16,9 @@ const CharacterDetails = () => {
           const charLocation = JSON.parse(
             sessionStorage.getItem("charLocations")
           );
-          const charData = charLocation.find((character) => {
+          const charData = !!charLocation ? charLocation.find((character) => {
             return character.charDetail.id === data.data.id;
-          });
+          }) : null;
           data.data.locationChar = charData
             ? charData.locations
             : "Tidak ada location";
@@ -33,12 +33,15 @@ const CharacterDetails = () => {
   }, [id]);
 
   const save = () => {
+    // untuk mendapatkan input value ketika tombol save di klik
     const locationChar = document.getElementById("inputLocation").value;
     if (locationChar === "") {
       alert("Input Kosong");
     }
 
+    // untuk get data ke session
     let charLocation = sessionStorage.getItem("charLocations");
+    // jika location tidak ada, maka location baru dimasukan ke session
     if (charLocation === null) {
       // console.log("masuk if");
       charLocation = [
@@ -48,11 +51,14 @@ const CharacterDetails = () => {
         },
       ];
     } else {
+      // jika location sudah ada
       // console.log("masuk else");
       charLocation = JSON.parse(charLocation);
+      // dicari character dengan id yang sama
       const characterData = charLocation.find((character) => {
         return character.charDetail.id === charDetails.id;
       });
+      // untuk update location pada character
       if (!!characterData) {
         characterData.locations = locationChar;
       } else {

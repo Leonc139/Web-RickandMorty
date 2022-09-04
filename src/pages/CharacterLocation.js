@@ -6,11 +6,13 @@ const CharacterLocation = () => {
   const [searchParams] = useSearchParams();
   const [characters, setCharacters] = useState([]);
   useEffect(() => {
+    // untuk mendapatkan uri "location"
     const location = searchParams.get("location");
     // console.log("params:", location);
     const sessionLocations = JSON.parse(
       sessionStorage.getItem("charLocations")
     );
+    // di filter location yang sesuai dengan uri "location"
     const tempData = sessionLocations.filter((item) => {
       return item.locations === location;
     });
