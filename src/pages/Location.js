@@ -10,11 +10,13 @@ const Location = () => {
     const sessionLocations = JSON.parse(
       sessionStorage.getItem("charLocations")
     );
-    sessionLocations.forEach((item) => {
-      if(tempData.indexOf(item.locations) < 0) {
-        tempData.push(item.locations);
-      }
-    });
+    if(!!sessionLocations) {
+      sessionLocations.forEach((item) => {
+        if(tempData.indexOf(item.locations) < 0) {
+          tempData.push(item.locations);
+        }
+      });
+    }
     setLocationData(tempData);
   }, []);
 
