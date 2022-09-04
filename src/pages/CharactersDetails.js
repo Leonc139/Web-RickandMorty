@@ -13,7 +13,15 @@ const CharacterDetails = () => {
       axios
         .get(`${CHARACTERS_API}/${id}`)
         .then((data) => {
-          // console.log("data:", data.data);
+          const charLocation = JSON.parse(
+            sessionStorage.getItem("charLocations")
+          );
+          const charData = charLocation.find((character) => {
+            return character.charDetail.id === data.data.id;
+          });
+          data.data.locationChar = charData
+            ? charData.locations
+            : "Tidak ada location";
           setCharDetails(data.data);
         })
         .catch((error) => {
@@ -24,13 +32,53 @@ const CharacterDetails = () => {
     }
   }, [id]);
 
-  let { image, origin, species, gender, status, name } = charDetails || {};
+  const save = () => {
+    const locationChar = document.getElementById("inputLocation").value;
+    if (locationChar === "") {
+      alert("Input Kosong");
+    }
+
+    let charLocation = sessionStorage.getItem("charLocations");
+    if (charLocation === null) {
+      // console.log("masuk if");
+      charLocation = [
+        {
+          charDetail: charDetails,
+          locations: locationChar,
+        },
+      ];
+    } else {
+      // console.log("masuk else");
+      charLocation = JSON.parse(charLocation);
+      const characterData = charLocation.find((character) => {
+        return character.charDetail.id === charDetails.id;
+      });
+      if (!!characterData) {
+        characterData.locations = locationChar;
+      } else {
+        charLocation.push({
+          charDetail: charDetails,
+          locations: locationChar,
+        });
+      }
+    }
+    sessionStorage.setItem("charLocations", JSON.stringify(charLocation));
+    window.location.reload();
+    console.log("location:", charLocation);
+  };
+
+  let { image, origin, species, gender, status, name, locationChar } =
+    charDetails || {};
   // console.log(charDetails);
   return (
     <div className="container">
       <br />
       <Link to="/characters">
-        <button type="button" className="btn btn-info" style={{ width: "100px", fontSize: "18px" }}>
+        <button
+          type="button"
+          className="btn btn-info"
+          style={{ width: "100px", fontSize: "18px" }}
+        >
           Back
         </button>
       </Link>
@@ -46,7 +94,6 @@ const CharacterDetails = () => {
               <li className="list-group-item">
                 <strong>Origin:</strong> {origin.name}
               </li>
-              <li className="list-group-item">Dapibus ac facilisis in</li>
               <li className="list-group-item">
                 <strong>Species:</strong> {species}
               </li>
@@ -55,6 +102,21 @@ const CharacterDetails = () => {
               </li>
               <li className="list-group-item">
                 <strong>Status:</strong> {status}
+              </li>
+              <li className="list-group-item">
+                <strong>Location:</strong>
+                <p>{locationChar}</p>
+                <input type="text" id="inputLocation" />
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                  style={{ marginLeft: "10px", marginTop: "-3px" }}
+                  onClick={save}
+                >
+                  Save
+                </button>
               </li>
             </ul>
           </div>

@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
+import CharacterLocation from "./pages/CharacterLocation";
 import Characters from "./pages/Characters/Characters";
 import CharacterDetails from "./pages/CharactersDetails";
 import Home from "./pages/Home/Home";
@@ -15,7 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/characters" element={<Characters />} />
         <Route path="/characters/:id" element={<CharacterDetails />} />
-        {/* <Route path="/locations/:id" component={LocationDetails} /> */}
+        <Route path="/location-detail" element={<CharacterLocation />} />
         <Route path="/locations" element={<Location />} />
       </Routes>
     </Router>
