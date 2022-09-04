@@ -12,11 +12,13 @@ const CharacterLocation = () => {
     const sessionLocations = JSON.parse(
       sessionStorage.getItem("charLocations")
     );
-    // di filter location yang sesuai dengan uri "location"
-    const tempData = sessionLocations.filter((item) => {
-      return item.locations === location;
-    });
-    setCharacters(tempData);
+    if (!!sessionLocations) {
+      // di filter location yang sesuai dengan uri "location"
+      const tempData = sessionLocations.filter((item) => {
+        return item.locations === location;
+      });
+      setCharacters(tempData);
+    }
     // console.log(tempData.length);
   }, [searchParams]);
   return (
